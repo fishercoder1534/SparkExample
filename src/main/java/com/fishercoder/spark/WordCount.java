@@ -49,7 +49,7 @@ public class WordCount {
 			} );
 
 		// Save the word count back out to a text file, causing evaluation.
-		reducedCounts.saveAsTextFile( "output" );
+		reducedCounts.saveAsTextFile( "output" + System.currentTimeMillis());
 	}
 
 	public static void wordCountJava8( String filename )
@@ -70,18 +70,20 @@ public class WordCount {
 		JavaPairRDD<String, Integer> counts = words.mapToPair( t -> new Tuple2( t, 1 ) ).reduceByKey( (x, y) -> (int)x + (int)y );
 
 		// Save the word count back out to a text file, causing evaluation.
-		counts.saveAsTextFile( "output" );
+		counts.saveAsTextFile( "output" + System.currentTimeMillis() );
 	}
 
 	public static void main( String[] args )
 	{
-//		if( args.length == 0 )
-//		{
-//			System.out.println( "Usage: com.fishercoder.spark.WordCount <file>" );
-//			System.exit( 0 );
-//		}
-		String arg = "input.txt";
-		wordCountJava7( arg);
-//		wordCountJava8( arg);
+		if( args.length == 0 ) {
+			System.out.println("args.length == 0");
+			String arg = "input.txt";
+//			wordCountJava7(arg);
+			wordCountJava8(arg);
+		} else {
+			System.out.println("args.length != 0");
+//			wordCountJava7(args[0]);
+			wordCountJava8(args[0]);
+		}
 	}
 }
