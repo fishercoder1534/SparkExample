@@ -27,7 +27,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.geekcap.javaworld.sparkexample.WordCount</mainClass>
+              <mainClass>com.fishercoder.spark.WordCount</mainClass>
             </manifest>
           </archive>
         </configuration>

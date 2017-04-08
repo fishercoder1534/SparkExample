@@ -1,3 +1,5 @@
+package com.fishercoder.spark;
+
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -75,7 +77,7 @@ public class WordCount {
 	{
 //		if( args.length == 0 )
 //		{
-//			System.out.println( "Usage: WordCount <file>" );
+//			System.out.println( "Usage: com.fishercoder.spark.WordCount <file>" );
 //			System.exit( 0 );
 //		}
 		String arg = "input.txt";
