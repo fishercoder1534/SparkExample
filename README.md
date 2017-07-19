@@ -19,9 +19,6 @@ Another important thing to note is that once an action is executed, you'll need 
 If you know that you're going to execute multiple actions then you can persist the RDD before executing the first action by invoking the persist() method; just be sure to release it by invoking unpersist() when you're done.
 
 
-Spark in a distributed environment:
-![Figure 1](https://i.imgsafe.org/9283875946.jpeg)
-
 Spark consists of two main components:
 
 1. Spark Driver
