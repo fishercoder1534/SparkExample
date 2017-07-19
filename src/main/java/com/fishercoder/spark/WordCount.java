@@ -15,8 +15,8 @@ import java.util.Arrays;
  * Created by stevesun on 4/8/17.
  */
 public class WordCount {
-	public static void wordCountJava7( String filename )
-	{
+	public static void wordCountJava7( String filename ) {
+		System.out.println("In wordCountJava7...");
 		// Define a configuration to use to interact with Spark
 		SparkConf sparkConf = new SparkConf().setMaster("local").setAppName("Work Count App");
 
@@ -49,11 +49,14 @@ public class WordCount {
 			} );
 
 		// Save the word count back out to a text file, causing evaluation.
-		reducedCounts.saveAsTextFile( "output" + System.currentTimeMillis());
+		String path = "/tmp/" + System.currentTimeMillis();
+		reducedCounts.saveAsTextFile(path);
+		System.out.println("Saved result to this directory: " + path + "." +
+				"You can cd into this directory to view results.");
 	}
 
-	public static void wordCountJava8( String filename )
-	{
+	public static void wordCountJava8( String filename ) {
+		System.out.println("In wordCountJava8...");
 		// Define a configuration to use to interact with Spark
 		SparkConf sparkConf = new SparkConf().setMaster("local").setAppName("Work Count App");
 
@@ -67,10 +70,14 @@ public class WordCount {
 		JavaRDD<String> words = input.flatMap( s -> Arrays.asList( s.split( " " ) ) );
 
 		// Java 8 with lambdas: transform the collection of words into pairs (word and 1) and then count them
-		JavaPairRDD<String, Integer> counts = words.mapToPair( t -> new Tuple2( t, 1 ) ).reduceByKey( (x, y) -> (int)x + (int)y );
+		JavaPairRDD<String, Integer> counts = words.mapToPair
+				(t -> new Tuple2( t, 1 ) ).reduceByKey((x, y) -> ((int) x + (int) y));
 
 		// Save the word count back out to a text file, causing evaluation.
-		counts.saveAsTextFile( "output" + System.currentTimeMillis() );
+		String path = "/tmp/" + System.currentTimeMillis();
+		counts.saveAsTextFile(path);
+		System.out.println("Saved result to this directory: " + path + "." +
+				"You can cd into this directory to view results.");
 	}
 
 	public static void main( String[] args )
