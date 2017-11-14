@@ -62,6 +62,9 @@ public class SparkDemo {
 
 		// Java 8 with lambdas: split the input string into words
 		JavaRDD<String> words = input.flatMap(s -> Arrays.asList(s.split(" ")));
+		String path = "/tmp/" + System.currentTimeMillis();
+		words.saveAsTextFile(path);
+		System.out.println("Saved words to this directory: " + path + "\n\n\n\n");
 
 		// Java 8 with lambdas: transform the collection of words into pairs (word and 1) and then count them
 		/**There might be redlines here, but it's totally fine to ignore. It's good to run.*/
@@ -69,10 +72,9 @@ public class SparkDemo {
 				(t -> new Tuple2(t, 1)).reduceByKey((x, y) -> ((int) x + (int) y));
 
 		// Save the word count back out to a text file, causing evaluation.
-		String path = "/tmp/" + System.currentTimeMillis();
+		path = "/tmp/" + System.currentTimeMillis();
 		counts.saveAsTextFile(path);
-		System.out.println("Saved result to this directory: " + path +
-				"\n\n\n\n");
+		System.out.println("Saved counts to this directory: " + path + "\n\n\n\n");
 	}
 
 	public static void sparkAPI(String filename) {
@@ -152,7 +154,7 @@ public class SparkDemo {
 			System.out.println("Please specify input text path, e.g. input.txt and any other necessary parameters based on your code.");
 		} else {
 //			wordCountJava7(args[0]);
-//			wordCountJava8(args[0]);
+			wordCountJava8(args[0]);
 			sparkAPI(args[0]);
 		}
 	}
